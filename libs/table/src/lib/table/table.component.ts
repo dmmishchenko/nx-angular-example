@@ -20,7 +20,7 @@ import { GetSortIconPipe } from './get-sort-icon.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet, GetCellValuePipe, GetSortIconPipe],
 })
-export class TableComponent<T = any> {
+export class TableComponent<T = unknown> {
   // Events
   readonly rowClick = output<T>();
 

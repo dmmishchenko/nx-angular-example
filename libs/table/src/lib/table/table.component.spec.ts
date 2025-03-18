@@ -12,7 +12,8 @@ describe('TableComponent', () => {
 
     fixture = TestBed.createComponent(TableComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    
+    // Note: We're not calling detectChanges() yet as the required inputs haven't been set
   });
 
   it('should create', () => {

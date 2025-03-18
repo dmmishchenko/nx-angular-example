@@ -1,0 +1,58 @@
+<!-- data-table.component.html -->
+<div class="table-container">
+  <!-- Custom header template or default header -->
+  @if (headerTemplate(); as headerTemplate) {
+  <ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+  } @else {
+  <div class="table-header">
+    <h3>Data Table</h3>
+  </div>
+  }
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        @for (column of columns(); track column.key) {
+        <th
+          [style.width]="column.width"
+          [class.sortable]="column.sortable"
+          (click)="sort(column)"
+        >
+          {{ column.header }}
+          @if (column.sortable) {
+          <span class="sort-icon">{{
+            column | getSortIcon : sortColumn() : sortDirection()
+          }}</span>
+          }
+        </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of displayData(); track item) {
+      <tr (click)="onRowClick(item)">
+        @for (column of columns(); track column.key) {
+        <td>
+          <!-- Custom cell template or default cell -->
+          @if (column.cellTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="column.cellTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item, column: column }"
+          >
+          </ng-container>
+          } @else {
+          {{ item | getCellValue : column.key }}
+          }
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- Custom footer template -->
+  @if (footerTemplate(); as footerTemplate) {
+  <ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
+  }
+</div>

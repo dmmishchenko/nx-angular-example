@@ -1,2 +1,22 @@
-<app-nx-welcome></app-nx-welcome>
+<h1>Users page</h1>
 <router-outlet></router-outlet>
+@if(users(); as users){
+<ui-table [data]="users" [columns]="columns()">
+  <ng-template #headerTemplate>
+    <div class="custom-header">
+      <h3>User Management</h3>
+    </div>
+  </ng-template>
+  <ng-template #footerTemplate>
+    <small>custom footer data</small>
+  </ng-template>
+</ui-table>
+} @else {
+<p>Loading...</p>
+}
+
+<ng-template #activeTemplate let-user>
+  <span class="status-indicator" [class.active]="user.active">
+    {{ user.active ? 'Active' : 'Inactive' }}
+  </span>
+</ng-template>
